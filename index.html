@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBite • Food Delivery</title>
+  <!-- Google Fonts & Font Awesome for icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #fef9f2;
+      color: #1e1e2f;
+      scroll-behavior: smooth;
+    }
+
+    /* header / navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #e63946;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo i {
+      background: #e63946;
+      color: white;
+      padding: 0.4rem 0.6rem;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 12px rgba(230, 57, 70, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #2b2d42;
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: #e63946;
+    }
+
+    .cart-icon {
+      position: relative;
+      font-size: 1.4rem;
+      color: #2b2d42;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .cart-icon:hover {
+      transform: scale(1.1);
+      color: #e63946;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: #e63946;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 30px;
+      box-shadow: 0 2px 6px rgba(230, 57, 70, 0.4);
+    }
+
+    /* hero section */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 5% 5rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background: linear-gradient(135deg, #fff7f0 0%, #fef3e6 100%);
+    }
+
+    .hero-text {
+      flex: 1 1 400px;
+    }
+
+    .hero-text h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: #1e1e2f;
+    }
+
+    .hero-text h1 span {
+      color: #e63946;
+      background: linear-gradient(145deg, #e63946, #b5172b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #4a4e69;
+      margin-bottom: 2rem;
+      max-width: 550px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: #e63946;
+      border: none;
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 12px 22px -6px rgba(230, 57, 70, 0.5);
+      transition: all 0.25s;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary:hover {
+      background: #b5172b;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 28px -8px rgba(230, 57, 70, 0.7);
+    }
+
+    .btn-outline {
+      background: transparent;
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e1e2f;
+      border: 2px solid #1e1e2f;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.25s;
+    }
+
+    .btn-outline:hover {
+      background: #1e1e2f;
+      color: white;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -8px rgba(30, 30, 47, 0.4);
+    }
+
+    .hero-image {
+      flex: 1 1 350px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 40px;
+      box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.25);
+      transition: transform 0.4s ease;
+      object-fit: cover;
+      border: 5px solid white;
+    }
+
+    .hero-image img:hover {
+      transform: scale(1.02) rotate(1deg);
+    }
+
+    /* floating food icons */
+    .floating-icon {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: 0.9;
+      animation: float 4s infinite ease-in-out;
+      filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.15));
+    }
+
+    .icon-1 { top: 0; left: 5%; animation-delay: 0s; }
+    .icon-2 { bottom: 10%; right: 5%; animation-delay: 1.2s; font-size: 3rem; }
+    .icon-3 { top: 40%; left: 85%; animation-delay: 0.6s; font-size: 2.2rem; }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* how it works / features */
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1e1e2f;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: #6c6f85;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .features {
+      padding: 4rem 5%;
+      background: white;
+    }
+
+    .feature-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: #fef9f2;
+      padding: 2rem 1.8rem;
+      border-radius: 30px;
+      flex: 1 1 220px;
+      max-width: 280px;
+      text-align: center;
+      transition: all 0.3s;
+      border: 1px solid rgba(230, 57, 70, 0.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+      cursor: default;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px);
+      background: white;
+      box-shadow: 0 30px 40px -12px rgba(230, 57, 70, 0.25);
+      border-color: rgba(230, 57, 70, 0.3);
+    }
+
+    .feature-card i {
+      font-size: 2.6rem;
+      color: #e63946;
+      margin-bottom: 1.5rem;
+      background: #ffe8e8;
+      padding: 1rem;
+      border-radius: 50%;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: #5e5f7a;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* restaurant cards - interactive section */
+    .restaurants {
+      padding: 4rem 5% 5rem;
+      background: #fff7f0;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .resto-card {
+      background: white;
+      border-radius: 30px;
+      overflow: hidden;
+      width: 260px;
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 1px solid #fff0e6;
+      position: relative;
+    }
+
+    .resto-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 35px 40px -15px rgba(230, 57, 70, 0.35);
+      border-color: #e63946;
+    }
+
+    .resto-img {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      transition: transform 0.3s;
+    }
+
+    .resto-card:hover .resto-img {
+      transform: scale(1.05);
+    }
+
+    .resto-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #e63946;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .resto-info {
+      padding: 1.2rem 1.2rem 1.5rem;
+    }
+
+    .resto-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .resto-info h3 i {
+      color: #f4a261;
+      font-size: 1rem;
+    }
+
+    .resto-info p {
+      color: #6b6d85;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .resto-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.8rem;
+    }
+
+    .tag {
+      background: #f1f1f6;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.8rem;
+      border-radius: 30px;
+      color: #3d3f58;
+    }
+
+    .price {
+      font-weight: 700;
+      color: #1e1e2f;
+    }
+
+    /* interactive cart message + dynamic effect */
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1e1e2f;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      z-index: 999;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .toast-message.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toast-message i {
+      color: #e63946;
+      font-size: 1.4rem;
+    }
+
+    /* footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 5%;
+      color: #6c6f85;
+      font-size: 0.9rem;
+      border-top: 1px solid #ffe3d5;
+      background: white;
+    }
+
+    .footer i {
+      color: #e63946;
+    }
+
+    /* responsiveness */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 5%;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero-text h1 {
+        font-size: 2.4rem;
+      }
+      .hero {
+        padding: 2rem 5% 3rem;
+      }
+      .section-title {
+        font-size: 1.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      .btn-primary, .btn-outline {
+        padding: 0.8rem 1.6rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-utensils"></i> QuickBite
+    </div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Restaurants</a>
+      <a href="#">Offers</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="cart-icon" id="cartIcon">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="cart-badge" id="cartCount">0</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Delicious food, <span>delivered fast</span> to your door</h1>
+      <p>Order from your favorite local restaurants and get fresh meals in minutes. Hot, tasty, and always on time.</p>
+      <div class="cta-buttons">
+        <button class="btn-primary" id="orderNowBtn"><i class="fas fa-bolt"></i> Order now</button>
+        <button class="btn-outline" id="exploreBtn"><i class="fas fa-compass"></i> Explore</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&auto=format&fit=crop&q=80" alt="Delicious food delivery">
+      <!-- Floating food icons -->
+      <div class="floating-icon icon-1">🍕</div>
+      <div class="floating-icon icon-2">🍔</div>
+      <div class="floating-icon icon-3">🥗</div>
+    </div>
+  </section>
+
+  <!-- Features / How it works -->
+  <section class="features">
+    <h2 class="section-title">Why QuickBite?</h2>
+    <p class="section-sub">Lightning-fast delivery & fresh meals every time</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <i class="fas fa-motorcycle"></i>
+        <h3>30 min delivery</h3>
+        <p>Hot and fresh food at your doorstep in under half an hour.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-leaf"></i>
+        <h3>Fresh ingredients</h3>
+        <p>We partner with local farms and top-rated restaurants.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-tag"></i>
+        <h3>Best prices</h3>
+        <p>Exclusive deals and no hidden fees. Eat well, save more.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-headset"></i>
+        <h3>24/7 support</h3>
+        <p>We're here for you anytime, anywhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Restaurant cards (interactive) -->
+  <section class="restaurants">
+    <h2 class="section-title">Popular near you</h2>
+    <p class="section-sub">Click on any restaurant to add a sample item to your cart</p>
+    <div class="card-grid" id="restaurantGrid">
+      <!-- Card 1 -->
+      <div class="resto-card" data-name="Pizza Palace" data-price="12.99">
+        <div class="resto-img" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80');">
+          <span class="resto-badge">⭐ 4.8</span>
+        </div>
+        <div class="resto-info">
+          <h3>Pizza Palace <i class="fas fa-star"></i></h3>
+          <p><i class="fas fa-clock"></i> 20-30 min</p>
+          <div class="resto-tags">
+            <span class="tag">Italian</span>
+            <span class="tag">Pizza</span>
+          </div>
+          <p class="price">$12.99</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="resto-card" data-name="Burger Hub" data-price="9.49">
+        <div class="resto-img" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80');">
+          <span class="resto-badge">⭐ 4.6</span>
+        </div>
+        <div class="resto-info">
+          <h3>Burger Hub <i class="fas fa-star"></i></h3>
+          <p><i class="fas fa-clock"></i> 15-25 min</p>
+          <div class="resto-tags">
+            <span class="tag">American</span>
+            <span class="tag">Burgers</span>
+          </div>
+          <p class="price">$9.49</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="resto-card" data-name="Sushi Sensei" data-price="18.99">
+        <div class="resto-img" style="background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop&q=80');">
+          <span class="resto-badge">⭐ 4.9</span>
+        </div>
+        <div class="resto-info">
+          <h3>Sushi Sensei <i class="fas fa-star"></i></h3>
+          <p><i class="fas fa-clock"></i> 30-40 min</p>
+          <div class="resto-tags">
+            <span class="tag">Japanese</span>
+            <span class="tag">Sushi</span>
+          </div>
+          <p class="price">$18.99</p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="resto-card" data-name="Taco Fiesta" data-price="8.99">
+        <div class="resto-img" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80');">
+          <span class="resto-badge">⭐ 4.7</span>
+        </div>
+        <div class="resto-info">
+          <h3>Taco Fiesta <i class="fas fa-star"></i></h3>
+          <p><i class="fas fa-clock"></i> 20-30 min</p>
+          <div class="resto-tags">
+            <span class="tag">Mexican</span>
+            <span class="tag">Tacos</span>
+          </div>
+          <p class="price">$8.99</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast notification (interactive feedback) -->
+  <div class="toast-message" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastText">Item added to cart!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 QuickBite — made with <i class="fas fa-heart"></i> for food lovers</p>
+  </footer>
+
+  <script>
+    (function() {
+      // ---------- CART STATE ----------
+      let cartCount = 0;
+      const cartCountElement = document.getElementById('cartCount');
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toastText');
+      let toastTimeout;
+
+      // Update cart badge
+      function updateCartBadge() {
+        cartCountElement.textContent = cartCount;
+        // add a little bump animation via scale
+        cartCountElement.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+          cartCountElement.style.transform = 'scale(1)';
+        }, 200);
+      }
+
+      // Show toast message
+      function showToast(message) {
+        toastText.textContent = message;
+        toast.classList.add('show');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2500);
+      }
+
+      // ---------- INTERACTIVE CARD CLICK (add to cart simulation) ----------
+      const cards = document.querySelectorAll('.resto-card');
+      cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          // prevent if it's the badge or something, but it's fine
+          const restoName = card.dataset.name || 'Restaurant';
+          const price = card.dataset.price || '0.00';
+          
+          // increase cart count
+          cartCount += 1;
+          updateCartBadge();
+          
+          // show toast message
+          showToast(`🍽️ Added ${restoName} item • $${price}`);
+          
+          // also add a little card effect
+          card.style.transition = 'all 0.1s';
+          card.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            card.style.transform = '';
+          }, 100);
+        });
+      });
+
+      // ---------- CART ICON CLICK (show summary) ----------
+      const cartIcon = document.getElementById('cartIcon');
+      cartIcon.addEventListener('click', () => {
+        if (cartCount === 0) {
+          showToast('🛒 Your cart is empty. Add something delicious!');
+        } else {
+          showToast(`🛍️ You have ${cartCount} item${cartCount > 1 ? 's' : ''} in your cart.`);
+        }
+      });
+
+      // ---------- HERO BUTTONS ----------
+      const orderNowBtn = document.getElementById('orderNowBtn');
+      const exploreBtn = document.getElementById('exploreBtn');
+
+      orderNowBtn.addEventListener('click', () => {
+        // Simulate quick order - add random item from visible cards
+        const randomCard = cards[Math.floor(Math.random() * cards.length)];
+        if (randomCard) {
+          const restoName = randomCard.dataset.name || 'Special';
+          const price = randomCard.dataset.price || '9.99';
+          cartCount += 1;
+          updateCartBadge();
+          showToast(`⚡ Quick order: ${restoName} • $${price}`);
+        } else {
+          showToast('👋 Choose a restaurant below to start!');
+        }
+      });
+
+      exploreBtn.addEventListener('click', () => {
+        // Scroll to restaurants section
+        document.querySelector('.restaurants').scrollIntoView({ behavior: 'smooth' });
+        showToast('🔍 Explore top restaurants near you');
+      });
+
+      // ---------- INITIALIZE CART BADGE ----------
+      updateCartBadge();
+
+      // small extra: make cart badge white on dark? no, fine.
+      // also animate feature cards on scroll (optional)
+      // but not needed, they have hover.
+
+      // Add CSS transition to cart badge
+      cartCountElement.style.transition = 'transform 0.15s ease';
+      
+      // add some hover effect to resto cards via JS? No, CSS handles it.
+
+      // Make "Order now" button also show floating effect? Already has hover.
+      // all good
+    })();
+  </script>
+
+  <!-- ensure that the cart badge transition works, already set -->
+  <style>
+    .cart-badge {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    /* additional micro-interaction for feature cards */
+    .feature-card i {
+      transition: transform 0.2s;
+    }
+    .feature-card:hover i {
+      transform: scale(1.1) rotate(5deg);
+    }
+  </style>
+</body>
+</html>
